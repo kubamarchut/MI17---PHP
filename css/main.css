@@ -52,7 +52,7 @@ body{
 	margin: 0 15px 0 0;
 }
 .timeStemp{
-	padding: 2px;
+	padding: 1px 3px;
     margin: 0 5px 0 0;
     background-color: #CE4257;
     color: #fff;
@@ -65,7 +65,7 @@ body{
 }
 .des{
 	float: right;
-    width: calc(100% - 105px);
+    width: calc(100% - 107px);
 }
 .aktu{
 	height: 40%;
