@@ -27,7 +27,7 @@
 						</span>
 					</div>
 				</div>
-				<ul class="newsList">
+				<ul class="newsList list">
 					<li>Już za 12 dni turniej programistów PHP. <a href=#>Czytaj_dalej</a></li>
 					<li>Nowa wersja frameworku Laravel. <a href=#>Sprawdź_co_się_zmieniło</a></li>
 				</ul>
@@ -60,11 +60,121 @@
 			</div>
 			<div class="muzyka">
 				<div class="title">Muzyka</div>
+				<ul class="musicList list">
+					<li>Nowa playlista do słuchania podczas programowania. <a href=#>Link</a></li>
+					<li>Lista przebojów programsitów PHP. <a href=#>Przejdź_do_głosowania</a></li>
+				</ul>
 			</div>
 			<div class="galeria">
 				<div class="title">Galeria</div>
+				<div class="article">
+					<button class="col galleryOpener">
+						<div class="title">Podróże</div>
+						<img class="gallerymin" src="img/traveller-1149973_1920.jpg" alt="podróże">
+					</button>
+					<button class="col galleryOpener">
+						<div class="title">Warszawa</div>
+						<img class="gallerymin" src="img/cialis-4077400_1920.jpg" alt="warszawa">
+					</button>
+				</div>
 			</div>
 		</div>
 		<div class="footer">Wykonał Jakub Marchut</div>
+		<div class="galleryModal">
+			<div class="galleryContent">
+				<p class="counter"></p>
+				<div class="wrapper">
+					<button class="galleryNav"><</button>
+					<div class="slide open">
+					  <img src="img/1/airport-2373727_1920.jpg" alt="obrazek1">
+					</div>
+					<div class="slide">
+					  <img src="img/1/amsterdam-4388160_1920.jpg" alt="obrazek1">
+					</div>
+					<div class="slide">
+					  <img src="img/1/cafe-3537801_1920.jpg" alt="obrazek1">
+					</div>
+					<div class="slide">
+					  <img src="img/1/maldives-1993704_1920.jpg" alt="obrazek1">
+					</div>
+					<button class="galleryNav">></button>
+				</div>
+			</div>
+			<button class="close">X</button>
+		</div>
+		<div class="galleryModal">
+			<div class="galleryContent">
+				<p class="counter"></p>
+				<div class="wrapper">
+					<button class="galleryNav"><</button>
+					<div class="slide open">
+					  <img src="img/2/architecture-3659152_1920.jpg" alt="obrazek1">
+					</div>
+					<div class="slide">
+					  <img src="img/2/cialis-4077400_1920.jpg" alt="obrazek1">
+					</div>
+					<div class="slide">
+					  <img src="img/2/first-3570271_1920.jpg" alt="obrazek1">
+					</div>
+					<div class="slide">
+					  <img src="img/2/monument-92826_1920.jpg" alt="obrazek1">
+					</div>
+					<div class="slide">
+					  <img src="img/2/warsaw-3421912_1920.jpg" alt="obrazek1">
+					</div>
+					<button class="galleryNav">></button>
+				</div>
+			</div>
+			<button class="close">X</button>
+		</div>
+		<script>
+			var slideN = [0, 0]
+			var openingBTNs = document.getElementsByClassName('galleryOpener');
+			openingBTNs = Array.prototype.slice.call(openingBTNs);
+			var galleries = document.getElementsByClassName('galleryModal');
+			galleries = Array.prototype.slice.call(galleries)
+
+			function openGallery(event){
+				var index = openingBTNs.indexOf(event.target)
+				var slides = galleries[index].getElementsByClassName('slide')
+				var counter = galleries[index].getElementsByClassName('counter')[0];
+				counter.innerHTML = `${slideN[index] + 1} / ${slides.length}`
+				galleries[index].classList.add('show');
+			}
+			function closeGallery(gallery){
+				var gallery = event.target.parentNode;
+				gallery.classList.remove('show');
+			}
+			function generateButtons(){
+				for(var i = 0; i < openingBTNs.length; i++) {
+					openingBTNs[i].addEventListener('click', openGallery)
+					var navigation = galleries[i].getElementsByClassName('galleryNav');
+					for (var j = 0; j < navigation.length; j++) {
+						navigation[j].addEventListener('click', changeSlide)
+					}
+					var closeBTN = galleries[i].getElementsByClassName('close')[0];
+					closeBTN.addEventListener('click', closeGallery)
+				}
+			}
+			function changeSlide(event){
+				var gallery = event.target.parentNode.parentNode.parentNode;
+				var slides = gallery.getElementsByClassName('slide')
+				var counter = gallery.getElementsByClassName('counter')[0];
+				var navButtons = Array.prototype.slice.call(gallery.getElementsByClassName('galleryNav'))
+
+				var temp = navButtons.indexOf(event.target) == 0 ? -1 : 1;
+				var slideNr = slideN[galleries.indexOf(gallery)] + temp
+				if(slideNr > -1 && slideNr < slides.length){
+						counter.innerHTML = `${slideNr + 1} / ${slides.length}`
+						slideN[galleries.indexOf(gallery)] = slideNr;
+
+						for (var i = 0; i < slides.length; i++) {
+							if(slides[i].classList.contains('open') && i != slideNr) slides[i].classList.remove('open')
+							else if(i == slideNr) slides[i].classList.add('open')
+						}
+				}
+			}
+			generateButtons()
+		</script>
 	</body>
 </html>
